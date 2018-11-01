@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Add Person</title>
+	<meta charset="utf-8">
+	<script type="text/javascript">
+		var newPerson="";
+	</script>
+	<style type="text/css">
+		table, th, td{
+			border: 1px solid black;
+		}
+	</style>
+</head>
+<body>
+	<table id="personTable" style="width: 500px">
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Last Name</th>
+			<th>Age</th>
+		</tr>
+	</table>
+	<form method="post" name="personForm">
+		<p>შეიყვანეთ სახელი:</p>
+		<input type="text" name="name">
+		<p>შეიყვანეთ გვარი:</p>
+		<input type="text" name="lastName">
+		<p>შეიყვანეთ ასაკი</p>
+		<input type="text" name="age">
+		<input type="button" name="submitButton" value="Add" onclick="addPerson()">
+		<input type="button" name="sort" value="sort" onclick="sortPerson()">
+	</form>
+	<script type="text/javascript">
+		var ID=0;
+		var pNames=[];
+		var i=-1;
+		function addPerson(){
+			pt=document.getElementById("personTable");
+			var newTr=document.createElement('tr');
+			pt.appendChild(newTr);
+			var newTdId=document.createElement('td');
+			newTr.appendChild(newTdId);
+			var newTdName=document.createElement('td');
+			newTr.appendChild(newTdName);
+			var newTdLastName=document.createElement('td');
+			newTr.appendChild(newTdLastName);
+			var newTdAge=document.createElement('td');
+			newTr.appendChild(newTdAge);
+			ID++;
+			newTdId.innerHTML=ID;
+			newTdName.innerHTML=document.forms["personForm"]["name"].value;
+			var newName=document.forms["personForm"]["name"].value;
+			newTdLastName.innerHTML=document.forms["personForm"]["lastName"].value;
+			var newLastName=document.forms["personForm"]["lastName"].value;
+			newTdAge.innerHTML=document.forms["personForm"]["age"].value;
+			var newAge=innerHTML=document.forms["personForm"]["age"].value;
+			var newPrsn=createPerson(ID, newName, newLastName, newAge);
+			pNames.push(newPrsn);
+		}
+		function createPerson( nid, nname, nlastname, nage){
+			return{
+				id: nid,
+				name: nname,
+				lastName: nlastname,
+				age: nage
+			}
+		}
+		var ascended=true;
+		function sortPerson(){
+			count=0;
+			if(ascended==false){
+				pNames.sort(function(a, b){return a.id-b.id});
+				for(var i=0; i<ID; i++){
+					document.getElementsByTagName('td')[count].innerHTML=pNames[i].id;
+					count++;
+					document.getElementsByTagName('td')[count].innerHTML=pNames[i].name;
+					count++;
+					document.getElementsByTagName('td')[count].innerHTML=pNames[i].lastName;
+					count++;
+					document.getElementsByTagName('td')[count].innerHTML=pNames[i].age;
+					count++;
+				}
+				ascended=true;
+			}
+			else{
+				pNames.sort(function(a, b){return b.id-a.id});
+				for(var i=0; i<ID; i++){
+					document.getElementsByTagName('td')[count].innerHTML=pNames[i].id;
+					count++;
+					document.getElementsByTagName('td')[count].innerHTML=pNames[i].name;
+					count++;
+					document.getElementsByTagName('td')[count].innerHTML=pNames[i].lastName;
+					count++;
+					document.getElementsByTagName('td')[count].innerHTML=pNames[i].age;
+					count++;
+				}
+				ascended=false;
+			}
+		}
+	</script>
+</body>
+</html>
